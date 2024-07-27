@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100vh;
+            height: 100vh;
+            background-color: rgb(4, 192, 183);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .page{
+            width: 60vh;
+            height: 30vh;
+            background-color: rgba(255, 8, 0, 0.808);
+            box-shadow: 0px 0px 10px;
+            border-radius: 30px;
+            gap: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .time{
+            width: 30vh;
+            height: 10vh;
+            background-color: rgb(142, 238, 238);
+            box-shadow: 0px 0px 10px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+        .settings{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        button{
+            border-radius:10px;
+            padding:5px 10px;
+            box-shadow: 0px 0px 10px;
+            border: none;
+            cursor: pointer;
+        }
+        #resumebtn , #stopbtn{
+            display: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="time">
+            <h1 id="hour">00</h1>
+            <h1>:</h1>
+            <h1 id="min">00</h1>
+            <h1>:</h1>
+            <h1 id="sec">00</h1>
+        </div>
+        <div class="settings">
+            <button id="startbtn" onclick="start()">Start</button>
+            <button id="stopbtn" onclick="stop()">Stop</button>
+            <button id="resetbtn" onclick="reset()">Reset</button>
+            <button id="resumebtn" onclick="resume()">Resume</button>
+        </div>
+    </div>
+
+    <script>
+
+        var isec=1;
+        var imin=1;
+        var ihour=1;
+        var timmer;
+
+        function start(){
+            var sec = document.getElementById("sec");
+            var min = document.getElementById("min");
+            var hour = document.getElementById("hour");
+            var start_btn = document.getElementById("startbtn");
+            start_btn.style.display="none"; 
+            var stop_btn = document.getElementById("stopbtn");
+            stop_btn.style.display="block"; 
+            timmer = setInterval(time,1000);   
+            }
+           
+        function time(){
+                sec.textContent=isec++;
+                if(sec.textContent == 60){
+                    sec.textContent=0;
+                    isec=1;
+                    min.textContent= imin++;
+                    if(min.textContent == 60){
+                        sec.textContent=0;
+                        imin=1;
+                        hour.textContent= ihour++;
+                        if(hour.textContent == 60){
+                            alert("Time up....");
+                            window.location.reload();
+                        }
+                        }
+                    }
+                }
+        function stop(){
+            if(sec.textContent == 0 && min.textContent== 0 && hour.textContent==0){;}
+            else{ clearInterval(timmer); 
+            var stop_btn = document.getElementById("stopbtn");
+            stop_btn.style.display="none"; 
+            var resume_btn = document.getElementById("resumebtn")
+            resume_btn.style.display="block"; 
+            }
+        }
+        function resume(){
+            var sec = document.getElementById("sec");
+            var min = document.getElementById("min");
+            var hour = document.getElementById("hour");
+            var resume_btn = document.getElementById("resumebtn")
+            resume_btn.style.display="none"; 
+            var stop_btn = document.getElementById("stopbtn");
+            stop_btn.style.display="block"; 
+            timmer = setInterval(time,1000);  
+        }
+        function reset(){ window.location.reload(); }
+
+    </script>
+</body>
+</html>
